@@ -19,8 +19,19 @@ mongoose
     console.log("mongoDB connected sucessfully!");
   })
   .catch((err) => {
-    conbsole.log("error", err);
+    console.log("error", err);
   });
+
 app.listen(3000, () => {
   console.log("Server is running on port 3000");
+});
+
+app.use((err, req, res, next) => {
+  const statusCode = err.statusCode || 500;
+  const message = err.message || " internal server error";
+  res.status(statusCode).json({
+    success: false,
+    statusCode,
+    message,
+  });
 });
