@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import Logo from "../assets/LogoR.png";
+import OAuth from "../components/OAuth";
 import { Link, useNavigate } from "react-router-dom";
 import { Alert, Button, Label, Spinner, TextInput } from "flowbite-react";
 import { useDispatch, useSelector } from "react-redux";
@@ -55,7 +56,7 @@ const SignIn = () => {
           >
             <img src={Logo} alt="" className="w-40 h-10 " />
           </Link>
-          <p className="text-sm mt-5">
+          <p className="text-sm mt-5 font-sans text-[#666]">
             Ready to experience the convenience of online shopping like never
             before? Sign in now to become a part of our vibrant community! By
             creating your account, you'll gain access to personalized product
@@ -94,11 +95,12 @@ const SignIn = () => {
                 "Sign Up"
               )}
             </Button>
+            <OAuth />
           </form>
           <div className="flex gap-2 text-sm mt-5">
             <span>Dont have an account ?</span>
             <Link to="/sign-up" className="text-blue-700">
-              Sign Up
+              Sign In
             </Link>
           </div>
           {errorMessage && (
