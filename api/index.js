@@ -1,6 +1,7 @@
 import express from "express";
 import mongoose from "mongoose";
 import bodyParser from "body-parser";
+import cookieParser from "cookie-parser";
 const app = express();
 
 //Routes imported here !
@@ -8,6 +9,7 @@ import userRoutes from "../api/routes/user.js";
 import authroutes from "../api/routes/auth.js";
 
 app.use(bodyParser.json());
+app.use(cookieParser());
 app.use("/api/user", userRoutes);
 app.use("/api/auth", authroutes);
 
