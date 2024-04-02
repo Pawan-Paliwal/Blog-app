@@ -7,11 +7,13 @@ const app = express();
 //Routes imported here !
 import userRoutes from "../api/routes/user.js";
 import authroutes from "../api/routes/auth.js";
+import postroutes from "../api/routes/post.js";
 
 app.use(bodyParser.json());
 app.use(cookieParser());
 app.use("/api/user", userRoutes);
 app.use("/api/auth", authroutes);
+app.use("/api/post", postroutes);
 
 mongoose
   .connect(
