@@ -20,10 +20,11 @@ import {
   deleteUserFailure,
   signoutSuccess,
 } from "../redux/user/userSlice";
+import { Link } from "react-router-dom";
 
 const DashProfile = () => {
   const dispatch = useDispatch();
-  const { currentUser, error } = useSelector((state) => state.user);
+  const { currentUser, error, loading } = useSelector((state) => state.user);
   const [imageFile, setImageFile] = useState(null);
   const [imageFileUrl, setImageFileUrl] = useState(null);
   const [imageFileUploadProgress, setImageFileUploadProgress] = useState(null);
@@ -51,17 +52,8 @@ const DashProfile = () => {
   const handlechange = (e) => {
     setFormData({ ...formData, [e.target.id]: e.target.value });
   };
+
   const uploadImage = async () => {
-    // service firebase.storage {
-    //   match /b/{bucket}/o {
-    //     match /{allPaths=**} {
-    //       allow read;
-    //       allow write: if
-    //       request.resource.size < 2 * 1024 * 1024 &&
-    //       request.resource.contentType.matches('image/.*')
-    //     }
-    //   }
-    // }
     setImageFileuploading(true);
     setImageFileUploadError(null);
     const storage = getStorage(app);
@@ -73,10 +65,10 @@ const DashProfile = () => {
       (snapshot) => {
         const progress =
           (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-
         setImageFileUploadProgress(progress.toFixed(0));
       },
       (error) => {
+        console.log(error);
         setImageFileUploadError(
           "Could not upload image (File must be less than 2MB)"
         );
@@ -96,6 +88,8 @@ const DashProfile = () => {
 
   const handlesubmit = async (e) => {
     e.preventDefault();
+    setUpdateUserError(null);
+    setUpdateUserSuccess(null);
     if (Object.keys(formData).length === 0) {
       setUpdateUserError("no Changes made !");
       return;
@@ -149,7 +143,7 @@ const DashProfile = () => {
       });
       const data = res.json();
       if (!res.ok) {
-        console.log(error.message);
+        console.log(data.message);
       } else {
         dispatch(signoutSuccess());
       }
@@ -227,9 +221,22 @@ const DashProfile = () => {
           placeholder="password"
           onChange={handlechange}
         />
-        <Button type="submit" gradientDuoTone="purpleToBlue" outline>
-          Update Update
+        {loading ? "Loading...." : "Update"}
+        <Button
+          type="submit"
+          gradientDuoTone="purpleToBlue"
+          outline
+          disabled={loading || imageFileuploading}
+        >
+          Update
         </Button>
+        {currentUser.isAdmin && (
+          <Link to={"/create-post"}>
+            <Button type="button" outline className="w-full">
+              Create Post
+            </Button>
+          </Link>
+        )}
       </form>
       <div className="text-red-500 flex justify-between mt-5">
         <span className="cursor-pointer" onClick={() => setShowModal(true)}>

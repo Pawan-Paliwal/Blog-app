@@ -8,6 +8,7 @@ export const create = async (req, res, next) => {
   if (!req.body.title || !req.body.content) {
     return next(errorHandler(403, "Please provide all required Fields"));
   }
+  console.log("helow");
   const slug = req.body.title
     .split(" ")
     .join("-")
@@ -22,6 +23,7 @@ export const create = async (req, res, next) => {
     const savedPost = await newPost.save();
     res.status(201).json(savedPost);
   } catch (error) {
+    console.log(error);
     next(error);
   }
 };
