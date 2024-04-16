@@ -22,6 +22,7 @@ import {
 } from "../redux/user/userSlice";
 import { Link } from "react-router-dom";
 
+
 const DashProfile = () => {
   const dispatch = useDispatch();
   const { currentUser, error, loading } = useSelector((state) => state.user);
@@ -117,7 +118,6 @@ const DashProfile = () => {
       dispatch(updateFailure());
     }
   };
-
   const handleDeleteUser = async (e) => {
     setShowModal(false);
     try {
@@ -135,7 +135,6 @@ const DashProfile = () => {
       dispatch(deleteUserFailure(error.message));
     }
   };
-
   const handleSignout = async (req, res) => {
     try {
       const res = await fetch("/api/user/signout", {
@@ -221,7 +220,7 @@ const DashProfile = () => {
           placeholder="password"
           onChange={handlechange}
         />
-        {loading ? "Loading...." : "Update"}
+        {loading ? "Loading...." : ""}
         <Button
           type="submit"
           gradientDuoTone="purpleToBlue"

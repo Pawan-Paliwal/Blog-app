@@ -10,5 +10,4 @@ const OnlyAdminPrivate = () => {
     <Navigate to="/sign-in" />
   );
 };
-
 export default OnlyAdminPrivate;

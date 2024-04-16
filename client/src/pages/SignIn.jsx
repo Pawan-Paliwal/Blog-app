@@ -14,8 +14,8 @@ const SignIn = () => {
   const [formData, setFormData] = useState({});
   const { Loading, error: errorMessage } = useSelector((state) => state.user);
   const dispatch = useDispatch();
-
   const navigate = useNavigate();
+
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.id]: e.target.value.trim() });
   };
@@ -35,7 +35,6 @@ const SignIn = () => {
       if (data.success === false) {
         dispatch(signInFailure(data.message));
       }
-
       if (res.ok) {
         dispatch(signInSuccess(data));
         navigate("/");

@@ -2,11 +2,11 @@ import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import DashSidebar from "../components/DashSidebar";
 import DashProfile from "../components/DashProfile";
+import DashPosts from "../components/DashPosts";
 
 const DashBoard = () => {
   const location = useLocation();
   const [tab, settab] = useState("");
-
   useEffect(() => {
     const urlParams = new URLSearchParams(location.search);
     const TabfromUrl = urlParams.get("tab");
@@ -14,7 +14,6 @@ const DashBoard = () => {
       settab(TabfromUrl);
     }
   }, [location.search]);
-
   return (
     <div className="min-h-screen  flex flex-col md:flex-row">
       {/* SideBar */}
@@ -23,6 +22,7 @@ const DashBoard = () => {
       </div>
       {/* profile */}
       {tab === "profile" && <DashProfile />}
+      {tab === "posts" && <DashPosts />}
     </div>
   );
 };
