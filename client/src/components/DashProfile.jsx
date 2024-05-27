@@ -22,7 +22,6 @@ import {
 } from "../redux/user/userSlice";
 import { Link } from "react-router-dom";
 
-
 const DashProfile = () => {
   const dispatch = useDispatch();
   const { currentUser, error, loading } = useSelector((state) => state.user);
