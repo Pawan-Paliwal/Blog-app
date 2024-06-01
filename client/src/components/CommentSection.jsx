@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
-import { Alert, Button, Modal, TextInput, Textarea } from 'flowbite-react';
+import { Alert, Button, Modal, Textarea } from 'flowbite-react';
 import Comment from "./Comment";
 import { HiOutlineExclamationCircle } from 'react-icons/hi';
 
@@ -14,7 +14,6 @@ export default function CommentSection({ postId }) {
   const [showModal, setshowModal] = useState(false);
   const navigate = useNavigate();
 
-  console.log(Comments)
 
   const handleSubmit = async (e) => {
     e.preventDefault();
