@@ -6,6 +6,7 @@ import {
   HiDocumentText,
   HiOutlineUserGroup,
   HiUser,
+  HiAnnotation,
 } from "react-icons/hi";
 import { signoutSuccess } from "../redux/user/userSlice";
 import { useDispatch, useSelector } from "react-redux";
@@ -19,7 +20,7 @@ const DashSidebar = () => {
   useEffect(() => {
     const urlParams = new URLSearchParams(location.search);
     const TabfromUrl = urlParams.get("tab");
-    if (TabfromUrl) {
+    if(TabfromUrl) {
       settab(TabfromUrl);
     }
   }, [location.search]);
@@ -29,12 +30,12 @@ const DashSidebar = () => {
         method: "POST",
       });
       const data = res.json();
-      if (!data.ok) {
+      if(!data.ok) {
         console.log(error.message);
       } else {
         dispatch(signoutSuccess());
       }
-    } catch (error) {
+    } catch(error) {
       console.log(error.message);
     }
   };
@@ -72,7 +73,18 @@ const DashSidebar = () => {
                 icon={HiOutlineUserGroup}
                 as="div"
               >
-                Users 
+                Users
+              </Sidebar.Item>
+            </Link>
+          )}
+          {currentUser.isAdmin && (
+            <Link to="/dashboard?tab=comments">
+              <Sidebar.Item
+                active={tab === "users"}
+                icon={HiAnnotation}
+                as="div"
+              >
+                Comments
               </Sidebar.Item>
             </Link>
           )}

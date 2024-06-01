@@ -21,6 +21,7 @@ export default function UpdatePost() {
   const [formData, setFormData] = useState({});
   const [publishError, setPublishError] = useState(null);
   const { postId } = useParams();
+  console.log("formData is ", formData)
 
   const navigate = useNavigate();
   const { currentUser } = useSelector((state) => state.user);
@@ -30,26 +31,26 @@ export default function UpdatePost() {
       const fetchPost = async () => {
         const res = await fetch(`/api/post/getposts?postId=${postId}`);
         const data = await res.json();
-        if (!res.ok) {
+        if(!res.ok) {
           console.log(data.message);
           setPublishError(data.message);
           return;
         }
-        if (res.ok) {
+        if(res.ok) {
           setPublishError(null);
           setFormData(data.posts[0]);
         }
       };
 
       fetchPost();
-    } catch (error) {
+    } catch(error) {
       console.log(error.message);
     }
   }, [postId]);
 
   const handleUpdloadImage = async () => {
     try {
-      if (!file) {
+      if(!file) {
         setImageUploadError("Please select an image");
         return;
       }
@@ -77,7 +78,7 @@ export default function UpdatePost() {
           });
         }
       );
-    } catch (error) {
+    } catch(error) {
       setImageUploadError("Image upload failed");
       setImageUploadProgress(null);
       console.log(error);
@@ -97,16 +98,16 @@ export default function UpdatePost() {
         }
       );
       const data = await res.json();
-      if (!res.ok) {
+      if(!res.ok) {
         setPublishError(data.message);
         return;
       }
 
-      if (res.ok) {
+      if(res.ok) {
         setPublishError(null);
         navigate(`/post/${data.slug}`);
       }
-    } catch (error) {
+    } catch(error) {
       setPublishError("Something went wrong");
     }
   };
@@ -168,7 +169,7 @@ export default function UpdatePost() {
         {formData.image && (
           <img
             src={formData.image}
-            alt="upload"
+            alt="upload" 
             className="w-full h-72 object-cover"
           />
         )}
