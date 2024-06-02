@@ -5,6 +5,7 @@ import DashProfile from "../components/DashProfile";
 import DashPosts from "../components/DashPosts";
 import DashUsers from "../components/DashUsers";
 import DashComments from "../components/DashComments";
+import DashboardComp from "../components/DashboardComp";
 
 const DashBoard = () => {
   const location = useLocation();
@@ -12,7 +13,7 @@ const DashBoard = () => {
   useEffect(() => {
     const urlParams = new URLSearchParams(location.search);
     const TabfromUrl = urlParams.get("tab");
-    if (TabfromUrl) {
+    if(TabfromUrl) {
       settab(TabfromUrl);
     }
   }, [location.search]);
@@ -27,6 +28,7 @@ const DashBoard = () => {
       {tab === "posts" && <DashPosts />}
       {tab === "users" && <DashUsers />}
       {tab === "comments" && <DashComments />}
+      {tab === 'dash' && <DashboardComp />}
     </div>
   );
 };
